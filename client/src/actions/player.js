@@ -11,3 +11,10 @@ export const setScore = score => {
     payload: score
   }
 };
+
+const setPlayerType = type => {
+  return {
+    type: 'SETTYPE',
+    payload: type
+  }
+}

@@ -13,3 +13,11 @@ export const score = (state=0, action) => {
         return state
     }
 };
+
+export const player_type = (state='', action)=> {
+    if(action.type === 'SETTYPE') {
+        return action.payload
+    } else {
+        return state
+    }
+};

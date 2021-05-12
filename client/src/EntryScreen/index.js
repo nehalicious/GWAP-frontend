@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row"
 import Button from 'react-bootstrap/Button';
 
-import {setPlayer} from "../actions/player";
+import {setPlayer, setScore} from "../actions/player";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom"
 
@@ -15,6 +17,12 @@ export default function EntryScreen() {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const containerStyle = {
+        width: '100%',
+        textAlignLast:'center',
+        minHeight: '100vh'
+    };
+
     const submit = () => {
         if(name === null || name==='') {
             setInvalid(true)
@@ -23,6 +31,7 @@ export default function EntryScreen() {
                 .then(res => {
                     console.log(res);
                     dispatch(setPlayer(res.data._id));
+                    dispatch(setScore(res.data.points));
                     history.push('/EnterGameScreen')
                 })
                 .catch(error => console.log(error))
@@ -30,17 +39,22 @@ export default function EntryScreen() {
     };
 
     return (
-        <Container fluid>
+        <Container style={containerStyle} fluid>
 
-            <h1>Research Project - GWAP</h1>
+            <h1 className="p-5">Research Project - GWAP</h1>
 
-            <Form.Group controlId="name">
-                <Form.Label>Enter your name</Form.Label>
-                <Form.Control
-                    type="text"
-                    placeholder="John Doe"
-                    onChange={e=>{setInvalid(false); setName(e.target.value)}}/>
+            <Form.Group className="py-5" controlId="name">
+                <Row>
+                    <Form.Label>Enter your name</Form.Label>
+                </Row>
+                <Row>
+                    <Form.Control
+                        type="text"
+                        placeholder="John Doe"
+                        onChange={e=>{setInvalid(false); setName(e.target.value)}}/>
+                </Row>
             </Form.Group>
+
 
             <Button onClick={submit}>
                 Next
