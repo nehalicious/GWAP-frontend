@@ -41,26 +41,25 @@ export default function EntryScreen() {
     return (
         <Container style={containerStyle} fluid>
 
-            <h1 className="p-5">Research Project - GWAP</h1>
+            <h1 className="p-5 my-lg-5 heading">Research Project - GWAP</h1>
 
-            <Form.Group className="py-5" controlId="name">
-                <Row>
+            <Form.Group className="px-5 py-lg-3 py-xs-2" controlId="name">
+
                     <Form.Label>Enter your name</Form.Label>
-                </Row>
-                <Row>
+
                     <Form.Control
+                        className='name-form'
                         type="text"
                         placeholder="John Doe"
                         onChange={e=>{setInvalid(false); setName(e.target.value)}}/>
-                </Row>
-            </Form.Group>
 
+            </Form.Group>
 
             <Button onClick={submit}>
                 Next
             </Button>
 
-            {invalid ? <p> Please fill in your name</p> : null}
+            {invalid ? <p className="my-3" style={{color: 'red'}}> Please fill in your name</p> : null}
 
         </Container>
     )
