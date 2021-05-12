@@ -4,3 +4,10 @@ export const setPlayer = player_id => {
     payload: player_id
   };
 };
+
+export const setScore = score => {
+  return {
+    type: 'SETSCORE',
+    payload: score
+  }
+};
