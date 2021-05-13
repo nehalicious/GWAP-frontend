@@ -1,18 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import Routes from "./Routes";
-import socketClient  from "socket.io-client";
+import socket from "./utils/socket";
+import Receiver from "./utils/Receiver";
 
 function App() {
     const [message, setMessage] = useState('begin');
-    const SERVER = "http://127.0.0.1:8000";
-    let socket = socketClient (SERVER);
+
     socket.on('message', (m) => {
-        setMessage(m)});
+        setMessage(m)
+    });
 
     return (
         <>
             <Routes/>
+            <Receiver/>
             <h1>{message}</h1>
         </>
     );

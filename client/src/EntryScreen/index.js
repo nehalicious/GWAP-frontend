@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row"
 import Button from 'react-bootstrap/Button';
+import socket from "../utils/socket";
 
 import {setPlayer, setScore} from "../actions/player";
 import {useDispatch} from "react-redux";
@@ -27,14 +26,15 @@ export default function EntryScreen() {
         if(name === null || name==='') {
             setInvalid(true)
         } else {
-            axios.post('http://localhost:8000/player', {name: name})
-                .then(res => {
-                    console.log(res);
-                    dispatch(setPlayer(res.data._id));
-                    dispatch(setScore(res.data.points));
-                    history.push('/EnterGameScreen')
-                })
-                .catch(error => console.log(error))
+            socket.emit('player', {name: name});
+            // axios.post('http://localhost:8000/player', {name: name})
+            //     .then(res => {
+            //         console.log(res);
+            //         dispatch(setPlayer(res.data._id));
+            //         dispatch(setScore(res.data.points));
+            //         history.push('/EnterGameScreen')
+            //     })
+            //     .catch(error => console.log(error))
         }
     };
 
