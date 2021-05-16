@@ -27,14 +27,6 @@ export default function EntryScreen() {
             setInvalid(true)
         } else {
             socket.emit('player', {name: name});
-            // axios.post('http://localhost:8000/player', {name: name})
-            //     .then(res => {
-            //         console.log(res);
-            //         dispatch(setPlayer(res.data._id));
-            //         dispatch(setScore(res.data.points));
-            //         history.push('/EnterGameScreen')
-            //     })
-            //     .catch(error => console.log(error))
         }
     };
 

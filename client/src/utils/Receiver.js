@@ -22,8 +22,8 @@ export default function Receiver() {
 
         socket.on('session', new_session => {
             console.log(new_session);
-            dispatch(setSession(new_session))
-
+            dispatch(setSession(new_session));
+            history.push('/EnterGameScreen')
         })
     }, []);
 

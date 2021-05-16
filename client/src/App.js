@@ -13,9 +13,11 @@ function App() {
 
     return (
         <>
-            <Routes/>
+            <Routes
+            >
+
+            </Routes>
             <Receiver/>
-            <h1>{message}</h1>
         </>
     );
 }

@@ -1,6 +1,6 @@
 export const session_id = (state = '', action) => {
     if (action.type === 'SETSESSION') {
-         return action.payload.scene;
+         return action.payload._id;
     } else {
         return state
     }
