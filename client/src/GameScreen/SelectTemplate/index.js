@@ -4,15 +4,15 @@ import Row from 'react-bootstrap/Row';
 import FillTemplate from "../FillTemplate";
 import './hint.css';
 
-export default function SelectTemplate() {
+export default function SelectTemplate(props) {
     const [selected, select] = useState('');
     const [displayAll, setDisplay] = useState(true);
 
     const hints=[
-        'It contains...',
-        'It is used for...',
-        'It was made in...',
-        'Outdoor/ Indoor...'
+        'It contains',
+        'It is used for',
+        'It was made in',
+        'Outdoor/ Indoor'
     ];
 
     const hintStyle= {
@@ -35,7 +35,7 @@ export default function SelectTemplate() {
                 style={hintStyle}
                 onClick = {()=>handleClick(hint)}
             >
-                <p style={{width: '100%', textAlign: 'center'}}> { hint }</p>
+                <p style={{width: '100%', textAlign: 'center'}}> { hint }...</p>
             </Row>
         )};
 
@@ -45,7 +45,8 @@ export default function SelectTemplate() {
                 hints.map(hint=>createHint(hint)):
                 <FillTemplate
                     hint={selected}
-                    prev={()=>setDisplay(true)}/>
+                    prev={()=>setDisplay(true)}
+                    isVoting={props.isVoting}/>
             }
         </Container>
     )

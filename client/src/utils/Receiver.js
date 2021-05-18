@@ -32,7 +32,7 @@ export default function Receiver() {
         });
 
         socket.on('receive_hint', message => {
-            history.push('/Vote')
+            // history.push('/Vote')
         })
     }, []);
 
