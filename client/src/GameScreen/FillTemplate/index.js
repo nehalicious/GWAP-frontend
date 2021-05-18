@@ -1,0 +1,56 @@
+import React, {useState} from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Form from 'react-bootstrap/Form';
+
+export default function FillTemplate(props) {
+    const [text, setText] = useState('');
+
+    const containerStyle = {
+        background: '#FFFFFF',
+        minHeight: '50vh',
+        minWidth: '40vw'
+    };
+
+    const hintStyle = {
+        width: '100%',
+        textAlign: 'center',
+        fontSize: '3vh',
+        fontWeight: 'bold'
+    };
+
+    const next = (e) => {
+        e.preventDefault();
+
+    };
+
+    return(
+        <Container style={containerStyle}>
+            <Row className="px-4 pt-5 pb-2">
+                <p style={hintStyle}>
+                    {props.hint}
+                </p>
+            </Row>
+            <Row className="m-4 px-4">
+                <Form.Group style={{width: '100%', textAlign: 'center'}}>
+                    <Form.Control onChange={(e)=> setText(e.target.value)} type="text" placeholder="A blender" />
+                </Form.Group>
+            </Row>
+            <Row>
+                <Col>
+                    <button
+                        onClick={(e)=>{e.preventDefault(); props.prev()}}>
+                        Back
+                    </button>
+                </Col>
+                <Col>
+                    <button
+                    onClick={(e)=> {next(e)}}>
+                        Next
+                    </button>
+                </Col>
+            </Row>
+        </Container>
+    )
+}

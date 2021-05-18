@@ -1,30 +1,28 @@
-import React, {useState} from 'react';
-import axios from 'axios'
-
-import Container from 'react-bootstrap/Container'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import React, {useState, useEffect} from 'react';
+import {useSelector} from 'react-redux'
+import {session_scene} from "../reducers/sessionReducer";
 
 export default function EnterGameScreen() {
-    const [roomID, setRoomID] = useState(null);
 
-    const assignRoom = () => {
-        const data = roomID === null ? {player: 'player'} : {player: 'player', roomID: 'roomID'}
-        axios.post('/randomroom', {player: 'player'})
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-    };
+    const [waiting, isWaiting] = useState(true);
+    const scene = useSelector(store=>store.session_scene);
+    const type = useSelector(store=>store.player_type);
+
+    useEffect(()=> {
+        if (scene !== '') {
+            isWaiting(false);
+        } else {
+            isWaiting(true)
+        }
+    }, [scene]);
 
     return (
-        <Container>
-            <h1>Research Project - GWAP </h1>
-            <Button>
-                Join random room
-            </Button>
-            <Form.Group>
-                <Form.Label>Enter game id</Form.Label>
-                <Form.Control type="text" placeholder="2547BHVF" onChange={e=>setRoomID(e.target.value)}/>
-            </Form.Group>
-        </Container>
+        <>
+            <h1> Welcome to gameroom </h1>
+            {waiting ? <p> Waiting for players to join </p> : null}
+            {!waiting && type==='N'? <p> {scene} </p> : null}
+            {!waiting && type==='G'? <p> Waiting for hints </p> : null}
+        </>
+
     )
 }

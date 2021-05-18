@@ -3,6 +3,7 @@ import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
 import EntryScreen from "./EntryScreen";
 import EnterGameScreen from "./EnterGameScreen";
+import GameScreen from "./GameScreen";
 
 const Routes = () => {
     const location = useLocation();
@@ -21,11 +22,13 @@ const Routes = () => {
                 <Route
                     path={[
                         '/EntryScreen',
-                        '/EnterGameScreen'
+                        '/EnterGameScreen',
+                        '/GameScreen'
                     ]}>
                     <Switch location={location} key={location.pathname}>
                         <Route path="/EntryScreen" component={EntryScreen}/>
                         <Route path="/EnterGameScreen" component={EnterGameScreen}/>
+                        <Route path="/GameScreen" component={GameScreen}/>
                     </Switch>
                 </Route>
             </Switch>
