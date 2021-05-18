@@ -5,7 +5,7 @@ import {setPlayer, setScore, setPlayerType} from "../actions/player";
 import {setRoom} from '../actions/room';
 import {setSession} from "../actions/session";
 import {useHistory} from 'react-router-dom'
-import GameScreen from "../GameScreen";
+
 
 export default function Receiver() {
     const dispatch = useDispatch();
@@ -24,11 +24,15 @@ export default function Receiver() {
 
         socket.on('join', room => {
             console.log('new player joined')
-        })
+        });
 
         socket.on('session', new_session => {
             console.log('new_session');
             dispatch(setSession(new_session));
+        });
+
+        socket.on('receive_hint', message => {
+            history.push('/Vote')
         })
     }, []);
 

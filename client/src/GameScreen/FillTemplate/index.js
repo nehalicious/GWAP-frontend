@@ -3,9 +3,13 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form';
+import { useSelector } from 'react-redux'
+import socket from '../../utils/socket'
 
 export default function FillTemplate(props) {
     const [text, setText] = useState('');
+    const player = useSelector(store=>store.player);
+    const session = useSelector(store=>store.session_id);
 
     const containerStyle = {
         background: '#FFFFFF',
@@ -22,7 +26,7 @@ export default function FillTemplate(props) {
 
     const next = (e) => {
         e.preventDefault();
-
+        socket.emit('hint', {player: player, session: session})
     };
 
     return(
