@@ -11,6 +11,7 @@ export default function FillTemplate(props) {
     const [text, setText] = useState('');
     const player = useSelector(store=>store.player);
     const session = useSelector(store=>store.session_id);
+    const round = useSelector(store=> store.round);
     const dispatch = useDispatch();
 
     const containerStyle = {
@@ -28,7 +29,14 @@ export default function FillTemplate(props) {
 
     const next = (e) => {
         e.preventDefault();
-        socket.emit('hint', {player: player, session: session, hint: text})
+        socket.emit('hint',
+            {
+                player: player,
+                session: session,
+                round: round,
+                hint_id: props.hint_id,
+                hint: text}
+            );
         dispatch(setHint(props.hint + " " + text));
         props.isVoting(true)
     };

@@ -45,6 +45,7 @@ export default function SelectTemplate(props) {
                 hints.map(hint=>createHint(hint)):
                 <FillTemplate
                     hint={selected}
+                    hint_id={hints.indexOf(selected)}
                     prev={()=>setDisplay(true)}
                     isVoting={props.isVoting}/>
             }
