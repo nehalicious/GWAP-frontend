@@ -13,3 +13,9 @@ export const session_scene = (state='', action) => {
         return state;
     }
 };
+
+export const guess = (state='', action) => {
+    if(action.type === 'SETGUESS') {
+        return action.payload
+    } else return state;
+};

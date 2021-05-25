@@ -14,6 +14,7 @@ export default function GameScreen() {
     const [voting, isVoting] = useState(false);
     const hints = useSelector(store=>store.hints);
     const selectedHint = useSelector(store=>store.selectedHint);
+    const guess = useSelector(store=> store.guess);
 
     useEffect(()=> {
         if (scene !== '') {
@@ -44,6 +45,7 @@ export default function GameScreen() {
             {voting && selectedHint === ''? <Vote hints={hints}/>: null}
 
             {selectedHint !== '' ? <SelectedHint hint={selectedHint} type={type}/> : null}
+            {guess !== ''? <h1> Guessed {guess}</h1>: null}
 
         </Container>
     )

@@ -24,9 +24,9 @@ export default function Vote() {
     // }, [store_hints]);
 
     const hintStyle = {
-        background: voted ? '#000000': '#FFFFFF',
+        background:  '#FFFFFF',
         borderRadius: '15px',
-        // opacity: '0.1'
+        opacity: voted? 0.1: 1
     };
 
     const handleVote = (hint_id) => {
