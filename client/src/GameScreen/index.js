@@ -11,6 +11,7 @@ export default function GameScreen() {
     const scene = useSelector(store=>store.session_scene);
     const type = useSelector(store=>store.player_type);
     const [voting, isVoting] = useState(false);
+    const hints = useSelector(store=>store.hints);
 
     useEffect(()=> {
         if (scene !== '') {
@@ -38,7 +39,7 @@ export default function GameScreen() {
             {!waiting && type==='G' && !voting? <SceneBlock scene="Waiting for hints"/>: null}
 
             {!voting && !waiting && type==='N'? <SelectTemplate isVoting={isVoting}/> : null}
-            {voting? <Vote/>: null}
+            {voting? <Vote hints={hints}/>: null}
 
         </Container>
     )
