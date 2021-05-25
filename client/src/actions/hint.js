@@ -4,3 +4,10 @@ export const setHint = hint => {
     payload: hint
   };
 };
+
+export const setAllHints = hints => {
+  return {
+    type: 'SETALLHINTS',
+    payload: hints
+  }
+};
