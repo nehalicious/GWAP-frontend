@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useSelector} from "react-redux";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -7,8 +7,20 @@ import socket from '../../utils/socket';
 
 export default function Vote() {
     const hint = useSelector(store=>store.hint);
-    const hints = useSelector(store=> store.hints);
+    const store_hints = useSelector(store=>store.hints);
+    // const hints = useSelector(store=> store.hints);
+    const [hints, setHints] = useState([]);
     const [voted, setVoted] = useState(null);
+    const hints_index=[
+        'It contains',
+        'It is used for',
+        'It was made in',
+        'Outdoor/ Indoor'
+    ];
+
+    useEffect(()=> {
+        setHints(store_hints)
+    }, [store_hints]);
 
     const hintStyle = {
         background: voted ? '#000000': '#FFFFFF',
@@ -23,10 +35,10 @@ export default function Vote() {
 
     const makeHint = (hint) => {
         return (
-             <Row key={hint._id} style={hintStyle} className="my-2 mx-auto p-3">
-                <Col className="ml-0 pl-0" xs={9}> {hint.text} </Col>
+            <Row key={hint._id} style={hintStyle} className="my-2 mx-auto p-3">
+                <Col className="ml-0 pl-0" xs={9}> {hints_index[hint.templateID]} {hint.hint} </Col>
                 <Col onClick = {()=> handleVote(hint._id)} className="grow"  xs={3}>
-                        Vote
+                    Vote
                 </Col>
             </Row>
         )
@@ -34,10 +46,10 @@ export default function Vote() {
 
     return (
         <Container>
-            <Row style={hintStyle} className="my-2 mx-auto p-3">
-                <Col className="ml-0 pl-0" xs={9}> {hint} </Col>
-                <Col onClick = {()=> setVoted(hint._id)} xs={3}>Vote </Col>
-            </Row>
+            {/*<Row style={hintStyle} className="my-2 mx-auto p-3">*/}
+            {/*    <Col className="ml-0 pl-0" xs={9}> {hint} </Col>*/}
+            {/*    <Col onClick = {()=> setVoted(hint._id)} xs={3}>Vote </Col>*/}
+            {/*</Row>*/}
             {hints.map(x => makeHint(x))}
         </Container>
     )

@@ -8,7 +8,7 @@ export const hint = (state= '', action) => {
 
 export const hints = (state=[], action) => {
     if(action.type === 'ADDHINT') {
-        let new_state = this.state;
+        let new_state = state;
         new_state.push(action.payload)
         return new_state
     } else if(action.type === 'SETALLHINTS') {

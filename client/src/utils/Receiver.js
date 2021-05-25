@@ -4,6 +4,7 @@ import {useDispatch} from "react-redux";
 import {setPlayer, setScore, setPlayerType} from "../actions/player";
 import {setRoom} from '../actions/room';
 import {setSession} from "../actions/session";
+import {addHint} from "../actions/hint";
 import {useHistory} from 'react-router-dom'
 
 
@@ -35,9 +36,9 @@ export default function Receiver() {
             console.log(message)// history.push('/Vote')
         });
 
-        socket.on('hint', hints => {
-            console.log(hints);
-
+        socket.on('hint', hint => {
+            console.log(hint);
+            dispatch(addHint(hint))
         })
     }, []);
 
