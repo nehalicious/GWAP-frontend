@@ -41,9 +41,9 @@ export default function GameScreen() {
             {!waiting && type==='G' && !voting? <SceneBlock scene="Waiting for hints"/>: null}
 
             {!voting && !waiting && type==='N'? <SelectTemplate isVoting={isVoting}/> : null}
-            {voting? <Vote hints={hints}/>: null}
+            {voting && selectedHint === ''? <Vote hints={hints}/>: null}
 
-            <SelectedHint hint={selectedHint} type={type}/>
+            {selectedHint !== '' ? <SelectedHint hint={selectedHint} type={type}/> : null}
 
         </Container>
     )
