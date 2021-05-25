@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 import { player, score, player_type } from './playerReducer';
 import { room } from './roomReducer';
 import {session_id, session_scene} from "./sessionReducer";
-import {hint, hints} from './hintReducer';
+import {hint, hints, selectedHint} from './hintReducer';
 import {round} from './roundReducer'
 
 const rootReducer = combineReducers({
@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
     room,
     session_id, session_scene,
     round,
-    hint, hints
+    hint, hints, selectedHint
 });
 
 export default rootReducer;

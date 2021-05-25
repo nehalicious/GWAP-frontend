@@ -4,7 +4,8 @@ import Header from './Header'
 import SceneBlock from "./SceneBlock";
 import SelectTemplate from "./SelectTemplate";
 import {useSelector} from "react-redux";
-import Vote from './Vote'
+import Vote from './Vote';
+import SelectedHint from "./SelectedHint";
 
 export default function GameScreen() {
     const [waiting, isWaiting] = useState(true);
@@ -12,6 +13,7 @@ export default function GameScreen() {
     const type = useSelector(store=>store.player_type);
     const [voting, isVoting] = useState(false);
     const hints = useSelector(store=>store.hints);
+    const selectedHint = useSelector(store=>store.selectedHint);
 
     useEffect(()=> {
         if (scene !== '') {
@@ -40,6 +42,8 @@ export default function GameScreen() {
 
             {!voting && !waiting && type==='N'? <SelectTemplate isVoting={isVoting}/> : null}
             {voting? <Vote hints={hints}/>: null}
+
+            <SelectedHint hint={selectedHint} type={type}/>
 
         </Container>
     )

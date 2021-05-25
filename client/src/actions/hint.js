@@ -5,6 +5,13 @@ export const setHint = hint => {
   };
 };
 
+export const setSelectedHint = hint => {
+  return {
+    type: 'SETSELECTED',
+    payload: hint
+  }
+};
+
 export const addHint = hint => {
   return {
     type: 'ADDHINT',

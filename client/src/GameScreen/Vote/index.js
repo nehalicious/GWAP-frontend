@@ -7,9 +7,10 @@ import socket from '../../utils/socket';
 
 export default function Vote() {
     const hint = useSelector(store=>store.hint);
-    // const store_hints = useSelector(store=>store.hints);
+    const room = useSelector(store=>store.room);
+    const round = useSelector(store=>store.round);
     const hints = useSelector(store=> store.hints);
-    // const [hints, setHints] = useState([]);
+
     const [voted, setVoted] = useState(null);
     const hints_index=[
         'It contains',
@@ -29,8 +30,14 @@ export default function Vote() {
     };
 
     const handleVote = (hint_id) => {
+        console.log(hint_id)
         setVoted(hint_id);
-        socket.emit('vote', hint_id)
+        const data = {
+            hint_id: hint_id,
+            round_id: round,
+            room_id: room
+        };
+        socket.emit('vote', data)
     };
 
     const makeHint = (hint) => {
