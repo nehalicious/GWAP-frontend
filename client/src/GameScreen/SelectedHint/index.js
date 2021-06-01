@@ -9,12 +9,14 @@ export default function SelectedHint(props) {
     const [submitted, submit] = useState(false);
     const scene = useSelector(store=>store.session_scene);
     const room = useSelector(store=> store.room);
+    const session_id = useSelector(store=>store.session_id);
 
     const handleSubmit = () => {
         submit(true);
         const data = {
             guess: answer,
             room_id: room,
+            session_id: session_id,
             correct: answer === scene
         };
         socket.emit('guess', data);

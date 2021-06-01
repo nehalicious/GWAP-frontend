@@ -4,7 +4,8 @@ import {useDispatch} from "react-redux";
 import {setPlayer, setScore, setPlayerType} from "../actions/player";
 import {setRoom} from '../actions/room';
 import {setSession, setGuess} from "../actions/session";
-import {addHint, setSelectedHint} from "../actions/hint";
+import {addHint, setAllHints, setSelectedHint} from "../actions/hint";
+import {setRound} from "../actions/round";
 import {useHistory} from 'react-router-dom'
 
 
@@ -44,11 +45,19 @@ export default function Receiver() {
         socket.on('selectedHint', hint => {
             console.log(hint);
             dispatch(setSelectedHint(hint));
-        })
+        });
 
         socket.on('guess', guess => {
             console.log(guess);
             dispatch(setGuess(guess));
+        });
+
+        socket.on('round', data => {
+            console.log(data);
+            dispatch(setRound(data.new_round._id));
+            dispatch(setSelectedHint(''));
+            dispatch(setAllHints([]));
+            dispatch(setGuess(''));
         })
     }, []);
 
