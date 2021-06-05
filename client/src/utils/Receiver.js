@@ -13,7 +13,7 @@ export default function Receiver() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const player = useSelector(store=>store.player);
+    const player_id = useSelector(store=>store.player);
 
     useEffect(()=> {
         socket.on('player', ({player_obj, room}) => {
@@ -67,16 +67,21 @@ export default function Receiver() {
 
         socket.on('update_scores', data => {
             console.log(data);
-            console.log(player);
+            console.log(player_id);
             for(let i = 0; i<data.players.length; i++) {
                 let current = data.players[i];
                 console.log(current._id);
-                if(current._id === player) {
+                if(current._id === player_id) {
                     console.log(current.points);
                     dispatch(setScore(current.points))
                 }
             }
-        })
+        });
+
+        socket.on('game_over', data => {
+            console.log(data)
+        });
+
     }, []);
 
     return null;
