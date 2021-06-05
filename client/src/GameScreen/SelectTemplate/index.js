@@ -9,10 +9,10 @@ export default function SelectTemplate(props) {
     const [displayAll, setDisplay] = useState(true);
 
     const hints=[
-        'It contains',
-        'It is used for',
-        'It was made in',
-        'Outdoor/ Indoor'
+        'It contains...',
+        'It is used for...',
+        'It is surrounded by...',
+        'Outdoor/ Indoor...'
     ];
 
     const hintStyle= {

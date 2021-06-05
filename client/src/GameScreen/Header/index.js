@@ -23,7 +23,7 @@ export default function Header() {
     return (
         <Container style={headerContainerStyle} className="py-3 px-0 mx-0" fluid>
             <span>
-                <span className="px-3" style={headingStyle}> SceneFinder </span>
+                <span className="d-none d-md-block px-3" style={headingStyle}> SceneFinder </span>
                 <span className=" pr-0 justify-content-end" style={headingStyle}>Points: {points}</span>
             </span>
         </Container>
