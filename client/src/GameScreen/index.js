@@ -18,6 +18,11 @@ export default function GameScreen() {
     const guess = useSelector(store=> store.guess);
 
     useEffect(()=> {
+        isWaiting(true);
+        isVoting(false);
+    }, []);
+
+    useEffect(()=> {
         if (scene !== '') {
             isWaiting(false);
         } else {

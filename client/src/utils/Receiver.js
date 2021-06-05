@@ -24,6 +24,9 @@ export default function Receiver() {
             dispatch(setScore(player_obj.points));
             dispatch(setPlayerType(player_obj.type));
             dispatch(setRoom(room._id));
+            dispatch(setSelectedHint(''));
+            dispatch(setAllHints([]));
+            dispatch(setGuess(''));
             history.push('/GameScreen')
         });
 

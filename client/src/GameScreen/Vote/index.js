@@ -19,15 +19,15 @@ export default function Vote() {
         'Outdoor/ Indoor'
     ];
 
-    // useEffect(()=> {
-    //     setHints(store_hints)
-    // }, [store_hints]);
-
-    const hintStyle = {
-        background:  '#FFFFFF',
-        borderRadius: '15px',
-        opacity: voted? 0.1: 1
+    const getHintStyle = (current_hint) => {
+        return {
+            background:  '#FFFFFF',
+            borderRadius: '15px',
+            opacity: voted? 0.4: current_hint === hint ? 0.4 : 1,
+            cursor: current_hint !== hint ?'pointer': 'hover'
+        }
     };
+
 
     const handleVote = (hint_id) => {
         console.log(hint_id)
@@ -42,7 +42,7 @@ export default function Vote() {
 
     const makeHint = (hint) => {
         return (
-            <Row  style={hintStyle} className="my-2 mx-auto p-3">
+            <Row  style={getHintStyle(hint.hint)} className="my-2 mx-auto p-3">
                 <Col className="ml-0 pl-0" xs={9}> {hints_index[hint.templateID]} {hint.hint} </Col>
                 <Col onClick = {()=> handleVote(hint._id)} className="grow"  xs={3}>
                     Vote
