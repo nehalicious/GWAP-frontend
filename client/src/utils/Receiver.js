@@ -72,6 +72,7 @@ export default function Receiver() {
         socket.on('update_scores', data => {
             console.log(data);
             console.log(player_id);
+            dispatch(setFinalScore(data));
             for(let i = 0; i<data.players.length; i++) {
                 let current = data.players[i];
                 console.log(current._id);
