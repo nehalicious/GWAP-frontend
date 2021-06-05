@@ -31,6 +31,9 @@ export default function Receiver() {
         socket.on('session', new_session => {
             console.log('new_session');
             dispatch(setSession(new_session));
+            dispatch(setSelectedHint(''));
+            dispatch(setAllHints([]));
+            dispatch(setGuess(''));
         });
 
         socket.on('receive_hint', message => {
