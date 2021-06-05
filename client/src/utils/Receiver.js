@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import socket from "./socket";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setPlayer, setScore, setPlayerType} from "../actions/player";
 import {setRoom} from '../actions/room';
 import {setSession, setGuess} from "../actions/session";
@@ -12,6 +12,8 @@ import {useHistory} from 'react-router-dom'
 export default function Receiver() {
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const player = useSelector(store=>store.player);
 
     useEffect(()=> {
         socket.on('player', ({player_obj, room}) => {
@@ -64,7 +66,14 @@ export default function Receiver() {
         });
 
         socket.on('update_scores', data => {
-            console.log(data)
+            console.log(data);
+            for(let i = 0; i<data.players.length; i++) {
+                let current = data.players[i];
+                console.log(i._id);
+                if(current._id === player) {
+                    dispatch(setScore(current.points))
+                }
+            }
         })
     }, []);
 
