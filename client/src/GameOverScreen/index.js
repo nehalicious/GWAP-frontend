@@ -4,10 +4,13 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
 import Header from "../GameScreen/Header";
 import Col from "react-bootstrap/Col";
+import Button from 'react-bootstrap/Button';
+import {useHistory} from 'react-router-dom'
 
 export default function GameOverScreen() {
     const final = useSelector(store=>store.final_score);
     const [max, setMax] = useState(0);
+    const history = useHistory();
 
     const backgroundStyle = {
         minWidth: '100vw',
@@ -38,7 +41,7 @@ export default function GameOverScreen() {
                 </Col>
             </Row>
         )
-    }
+    };
 
     return (
         <Container style={backgroundStyle} className="px-0" fluid>
@@ -52,6 +55,11 @@ export default function GameOverScreen() {
                 </Container>
                 : null
             }
+            <Row className="justify-content-center py-2">
+                <Button onClick={()=>history.push('/EntryScreen')}>
+                    Play Again
+                </Button>
+            </Row>
         </Container>
     )
 }
