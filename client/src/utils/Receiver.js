@@ -58,6 +58,10 @@ export default function Receiver() {
             dispatch(setSelectedHint(''));
             dispatch(setAllHints([]));
             dispatch(setGuess(''));
+        });
+
+        socket.on('update_scores', data => {
+            console.log(data)
         })
     }, []);
 

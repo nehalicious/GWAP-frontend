@@ -9,6 +9,7 @@ import SelectedHint from "./SelectedHint";
 
 export default function GameScreen() {
     const [waiting, isWaiting] = useState(true);
+    const round = useSelector(store=> store.round);
     const scene = useSelector(store=>store.session_scene);
     const type = useSelector(store=>store.player_type);
     const [voting, isVoting] = useState(false);
@@ -23,6 +24,12 @@ export default function GameScreen() {
             isWaiting(true)
         }
     }, [scene]);
+
+    useEffect(()=> {
+        if(round !== '') {
+            isVoting(false);
+        }
+    }, [round]);
 
     const backgroundStyle = {
         minWidth: '100vw',
