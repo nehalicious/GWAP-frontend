@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import socket from "./socket";
 import {useDispatch, useSelector} from "react-redux";
 import {setPlayer, setScore, setPlayerType} from "../actions/player";
-import {setRoom} from '../actions/room';
+import {setRoom, setFinalScore} from '../actions/room';
 import {setSession, setGuess} from "../actions/session";
 import {addHint, setAllHints, setSelectedHint} from "../actions/hint";
 import {setRound} from "../actions/round";
@@ -13,12 +13,13 @@ export default function Receiver() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const player_id = useSelector(store=>store.player);
+    const [player_id, setPlayerID] = useState('');
 
     useEffect(()=> {
         socket.on('player', ({player_obj, room}) => {
             console.log(player_obj);
             console.log(room);
+            setPlayerID(player_obj._id);
             dispatch(setPlayer(player_obj._id));
             dispatch(setScore(player_obj.points));
             dispatch(setPlayerType(player_obj.type));
@@ -79,7 +80,9 @@ export default function Receiver() {
         });
 
         socket.on('game_over', data => {
-            console.log(data)
+            console.log(data);
+            dispatch(setFinalScore(data));
+            history.push('/GameOver')
         });
 
     }, []);

@@ -15,7 +15,7 @@ export default function Vote() {
     const hints_index=[
         'It contains',
         'It is used for',
-        'It was made in',
+        'It is surrounded by',
         'Outdoor/ Indoor'
     ];
 
