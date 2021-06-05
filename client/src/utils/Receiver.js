@@ -67,10 +67,12 @@ export default function Receiver() {
 
         socket.on('update_scores', data => {
             console.log(data);
+            console.log(player);
             for(let i = 0; i<data.players.length; i++) {
                 let current = data.players[i];
-                console.log(i._id);
+                console.log(current._id);
                 if(current._id === player) {
+                    console.log(current.points);
                     dispatch(setScore(current.points))
                 }
             }
