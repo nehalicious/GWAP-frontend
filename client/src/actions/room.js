@@ -4,3 +4,10 @@ export const setRoom = player_id => {
     payload: player_id
   };
 };
+
+export const setFinalScore = score => {
+  return {
+    type: 'SET_FINAL',
+    payload: score
+  }
+};

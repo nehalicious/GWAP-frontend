@@ -9,6 +9,7 @@ import SelectedHint from "./SelectedHint";
 
 export default function GameScreen() {
     const [waiting, isWaiting] = useState(true);
+    const round = useSelector(store=> store.round);
     const scene = useSelector(store=>store.session_scene);
     const type = useSelector(store=>store.player_type);
     const [voting, isVoting] = useState(false);
@@ -17,12 +18,23 @@ export default function GameScreen() {
     const guess = useSelector(store=> store.guess);
 
     useEffect(()=> {
+        isWaiting(true);
+        isVoting(false);
+    }, []);
+
+    useEffect(()=> {
         if (scene !== '') {
             isWaiting(false);
         } else {
             isWaiting(true)
         }
     }, [scene]);
+
+    useEffect(()=> {
+        if(round !== '') {
+            isVoting(false);
+        }
+    }, [round]);
 
     const backgroundStyle = {
         minWidth: '100vw',
@@ -39,7 +51,7 @@ export default function GameScreen() {
 
             {waiting ? <SceneBlock scene="Waiting for players to join "/> : null}
             {!waiting && type==='N' && !voting?  <SceneBlock scene={scene}/>  : null}
-            {!waiting && type==='G' && !voting? <SceneBlock scene="Waiting for hints"/>: null}
+            {!waiting && type==='G' && !voting && selectedHint===''? <SceneBlock scene="Waiting for hints"/>: null}
 
             {!voting && !waiting && type==='N'? <SelectTemplate isVoting={isVoting}/> : null}
             {voting && selectedHint === ''? <Vote hints={hints}/>: null}

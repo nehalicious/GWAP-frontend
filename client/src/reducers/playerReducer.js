@@ -6,7 +6,7 @@ export const player = (state = '', action) => {
     }
 };
 
-export const score = (state=0, action) => {
+export const score = (state= '', action) => {
     if (action.type === 'SETSCORE') {
         return action.payload
     } else {

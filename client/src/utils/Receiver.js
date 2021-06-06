@@ -1,16 +1,25 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import socket from "./socket";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setPlayer, setScore, setPlayerType} from "../actions/player";
-import {setRoom} from '../actions/room';
+import {setRoom, setFinalScore} from '../actions/room';
 import {setSession, setGuess} from "../actions/session";
-import {addHint, setSelectedHint} from "../actions/hint";
+import {addHint, setAllHints, setSelectedHint} from "../actions/hint";
+import {setRound} from "../actions/round";
 import {useHistory} from 'react-router-dom'
 
 
 export default function Receiver() {
     const dispatch = useDispatch();
     const history = useHistory();
+
+    let player = useSelector(store=>store.player);
+
+    const reset = () => {
+        dispatch(setSelectedHint(''));
+        dispatch(setAllHints([]));
+        dispatch(setGuess(''));
+    };
 
     useEffect(()=> {
         socket.on('player', ({player_obj, room}) => {
@@ -20,6 +29,7 @@ export default function Receiver() {
             dispatch(setScore(player_obj.points));
             dispatch(setPlayerType(player_obj.type));
             dispatch(setRoom(room._id));
+            reset();
             history.push('/GameScreen')
         });
 
@@ -30,10 +40,11 @@ export default function Receiver() {
         socket.on('session', new_session => {
             console.log('new_session');
             dispatch(setSession(new_session));
+            reset();
         });
 
         socket.on('receive_hint', message => {
-            console.log(message)// history.push('/Vote')
+            console.log(message)
         });
 
         socket.on('hint', hint => {
@@ -42,16 +53,29 @@ export default function Receiver() {
         });
 
         socket.on('selectedHint', hint => {
-            console.log(hint);
             dispatch(setSelectedHint(hint));
-        })
+        });
 
         socket.on('guess', guess => {
-            console.log(guess);
             dispatch(setGuess(guess));
-        })
+        });
+
+        socket.on('round', data => {
+            dispatch(setRound(data.new_round._id));
+            reset();
+        });
+
+        socket.on('update_scores', data => {
+           dispatch(setFinalScore(data));
+        });
+
+        socket.on('game_over', data => {
+            dispatch(setFinalScore(data));
+            history.push('/GameOver')
+        });
+
     }, []);
 
-    return null;
+    return <></>;
 
 }

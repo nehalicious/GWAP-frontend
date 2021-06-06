@@ -9,12 +9,21 @@ export default function SelectedHint(props) {
     const [submitted, submit] = useState(false);
     const scene = useSelector(store=>store.session_scene);
     const room = useSelector(store=> store.room);
+    const session_id = useSelector(store=>store.session_id);
+
+    const hints=[
+        'It contains ',
+        'It is used for ',
+        'It is surrounded by ',
+        'Outdoor/ Indoor '
+    ];
 
     const handleSubmit = () => {
         submit(true);
         const data = {
             guess: answer,
             room_id: room,
+            session_id: session_id,
             correct: answer === scene
         };
         socket.emit('guess', data);
@@ -30,7 +39,7 @@ export default function SelectedHint(props) {
     return (
         <>
             {! submitted ? <div>
-                <h1>{props.hint.hint}</h1>
+                <h1>{hints[props.hint.templateID]} : {props.hint.hint}</h1>
                 {props.type === 'G' ? getGuessingBox() : null}
             </div> : scene === answer ? <h1> Correct </h1> : <h1> Wrong </h1>
             }

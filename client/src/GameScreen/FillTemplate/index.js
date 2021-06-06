@@ -41,7 +41,7 @@ export default function FillTemplate(props) {
         socket.emit('hint',
             data
             );
-        dispatch(setHint(props.hint + " " + text));
+        dispatch(setHint(props.hint_id + text));
         props.isVoting(true)
     };
 

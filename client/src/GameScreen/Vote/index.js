@@ -15,22 +15,25 @@ export default function Vote() {
     const hints_index=[
         'It contains',
         'It is used for',
-        'It was made in',
+        'It is surrounded by',
         'Outdoor/ Indoor'
     ];
 
-    // useEffect(()=> {
-    //     setHints(store_hints)
-    // }, [store_hints]);
-
-    const hintStyle = {
-        background:  '#FFFFFF',
-        borderRadius: '15px',
-        opacity: voted? 0.1: 1
+    const getHintStyle = (current_hint, template_id) => {
+        return {
+            background:  '#FFFFFF',
+            borderRadius: '15px',
+            opacity: voted? 0.4: template_id+current_hint === hint ? 0.4 : 1,
+            cursor: template_id+current_hint !== hint ?'pointer': 'hover'
+        }
     };
 
-    const handleVote = (hint_id) => {
-        console.log(hint_id)
+
+    const handleVote = (hint_id, current_hint) => {
+        // if(current_hint.templateID + current_hint.hint === hint) {
+        //     return
+        // };
+
         setVoted(hint_id);
         const data = {
             hint_id: hint_id,
@@ -42,9 +45,9 @@ export default function Vote() {
 
     const makeHint = (hint) => {
         return (
-            <Row  style={hintStyle} className="my-2 mx-auto p-3">
+            <Row  style={getHintStyle(hint.hint, hint.templateID)} className="my-2 mx-auto p-3">
                 <Col className="ml-0 pl-0" xs={9}> {hints_index[hint.templateID]} {hint.hint} </Col>
-                <Col onClick = {()=> handleVote(hint._id)} className="grow"  xs={3}>
+                <Col onClick = {()=> handleVote(hint._id, hint)} className="grow"  xs={3}>
                     Vote
                 </Col>
             </Row>
