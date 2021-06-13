@@ -18,7 +18,6 @@ export default function Receiver() {
     const reset = () => {
         dispatch(setSelectedHint(''));
         dispatch(setAllHints([]));
-        dispatch(setGuess(''));
     };
 
     useEffect(()=> {
@@ -40,6 +39,7 @@ export default function Receiver() {
         socket.on('session', new_session => {
             console.log('new_session');
             dispatch(setSession(new_session));
+            dispatch(setGuess(''));
             reset();
         });
 

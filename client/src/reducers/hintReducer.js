@@ -12,7 +12,17 @@ export const selectedHint = (state='', action) => {
     } else {
         return state;
     }
-}
+};
+
+export const guesserHints = (state=[], action) => {
+    if(action.type === 'SETSELECTED' && action.payload !== '') {
+        return [...state, action.payload]
+    } else if(action.type === 'SETSESSION') {
+        return []
+    }  else {
+        return state
+    }
+};
 
 export const hints = (state=[], action) => {
     if(action.type === 'ADDHINT') {

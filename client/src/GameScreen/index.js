@@ -57,7 +57,7 @@ export default function GameScreen() {
             {voting && selectedHint === ''? <Vote hints={hints}/>: null}
 
             {selectedHint !== '' ? <SelectedHint hint={selectedHint} type={type}/> : null}
-            {guess !== ''? <h1> Guessed {guess}</h1>: null}
+            {/*{guess !== ''? <h1> Guessed {guess}</h1>: null}*/}
 
         </Container>
     )
