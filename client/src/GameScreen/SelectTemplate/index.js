@@ -41,6 +41,7 @@ export default function SelectTemplate(props) {
 
     return (
         <Container fluid>
+            <p style={{fontWeight: 'bold'}}> Click on the templates below to submit a hint</p>
             {displayAll ?
                 hints.map(hint=>createHint(hint)):
                 <FillTemplate
