@@ -27,7 +27,7 @@ export default function SceneBlock(props) {
                         <p style={description}>{props.scene}</p>
                     </Container>
                 </Col>
-                 <Col>
+                {guess !== '' ? <Col>
                     <Container className="my-4 py-3" style={blockStyle}>
                         {
                             guess !== '' ?
@@ -35,7 +35,7 @@ export default function SceneBlock(props) {
                                 <p style={description}> No guesses made yet</p>
                         }
                     </Container>
-                </Col>
+                </Col> : null}
             </Row>
         </Container>
     )

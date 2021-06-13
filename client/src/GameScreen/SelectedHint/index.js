@@ -45,9 +45,9 @@ export default function SelectedHint(props) {
     };
 
     const getGuessingBox = () => {
-        return (<Form.Group>
+        return (<Form.Group className="my-4">
             <Form.Control type="text" onChange={(e)=>setAnswer(e.target.value)}/>
-            <Button onClick={handleSubmit}>Submit</Button>
+            <Button className="my-2" onClick={handleSubmit}>Submit</Button>
         </Form.Group>)
     };
 
@@ -67,7 +67,7 @@ export default function SelectedHint(props) {
 
     return (
         <>
-            {! submitted ? <div>
+            {! submitted ? <div className="p-4">
                 {props.type === 'N' ? <h1>{hints[props.hint.templateID]} : {props.hint.hint}</h1> : null}
                 {props.type === 'G'? getHintsSoFar() : null}
                 {props.type === 'G' ? getGuessingBox() : null}
