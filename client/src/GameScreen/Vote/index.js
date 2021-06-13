@@ -4,12 +4,14 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import socket from '../../utils/socket';
+import SceneBlock from "../SceneBlock";
 
 export default function Vote() {
     const hint = useSelector(store=>store.hint);
     const room = useSelector(store=>store.room);
     const round = useSelector(store=>store.round);
     const hints = useSelector(store=> store.hints);
+    const scene = useSelector(store=>store.session_scene);
 
     const [voted, setVoted] = useState(null);
     const hints_index=[
@@ -27,6 +29,18 @@ export default function Vote() {
             cursor: template_id+current_hint !== hint ?'pointer': 'hover'
         }
     };
+
+    const blockStyle={
+        textAlign: 'center',
+        background: '#FBDABC',
+        borderRadius: '30px',
+        width: '40vw'
+    };
+
+    const description={
+        fontWeight: 'bold',
+        fontSize: '3.5vh'
+    }
 
 
     const handleVote = (hint_id, current_hint) => {
@@ -56,10 +70,14 @@ export default function Vote() {
 
     return (
         <Container>
+            <Container className="my-4 py-3" style={blockStyle}>
+                <p style={description}>{scene}</p>
+            </Container>
             {/*<Row style={hintStyle} className="my-2 mx-auto p-3">*/}
             {/*    <Col className="ml-0 pl-0" xs={9}> {hint} </Col>*/}
             {/*    <Col onClick = {()=> setVoted(hint._id)} xs={3}>Vote </Col>*/}
             {/*</Row>*/}
+            <p style={{fontWeight: 'bold'}}>Vote for the most relevant hint</p>
             {hints.map(x => makeHint(x))}
         </Container>
     )
