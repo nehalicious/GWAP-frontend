@@ -10,6 +10,7 @@ export default function SelectedHint(props) {
     const scene = useSelector(store=>store.session_scene);
     const room = useSelector(store=> store.room);
     const session_id = useSelector(store=>store.session_id);
+    const player = useSelector(store=>store.player);
 
     const hints=[
         'It contains ',
@@ -30,7 +31,8 @@ export default function SelectedHint(props) {
             guess: answer,
             room_id: room,
             session_id: session_id,
-            correct: isSame()
+            correct: isSame(),
+            player_id: player
         };
         socket.emit('guess', data);
     };
