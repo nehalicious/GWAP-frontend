@@ -10,6 +10,7 @@ export default function SelectedHint(props) {
     const scene = useSelector(store=>store.session_scene);
     const room = useSelector(store=> store.room);
     const session_id = useSelector(store=>store.session_id);
+    const player = useSelector(store=>store.player);
 
     const hints=[
         'It contains ',
@@ -18,13 +19,20 @@ export default function SelectedHint(props) {
         'Outdoor/ Indoor '
     ];
 
+    const isSame = () => {
+        console.log(answer);
+        console.log(scene);
+        return answer.toLowerCase().trim() === scene.toLowerCase().trim()
+    };
+
     const handleSubmit = () => {
         submit(true);
         const data = {
             guess: answer,
             room_id: room,
             session_id: session_id,
-            correct: answer === scene
+            correct: isSame(),
+            player_id: player
         };
         socket.emit('guess', data);
     };
@@ -41,7 +49,7 @@ export default function SelectedHint(props) {
             {! submitted ? <div>
                 <h1>{hints[props.hint.templateID]} : {props.hint.hint}</h1>
                 {props.type === 'G' ? getGuessingBox() : null}
-            </div> : scene === answer ? <h1> Correct </h1> : <h1> Wrong </h1>
+            </div> : isSame() ? <h1> Correct </h1> : <h1> Wrong </h1>
             }
 
         </>
